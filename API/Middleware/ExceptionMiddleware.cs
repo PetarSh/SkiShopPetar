@@ -38,9 +38,7 @@ namespace API.Middleware
                     ex.StackTrace.ToString())
                     : new ApiException((int)HttpStatusCode.InternalServerError);
 
-                var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
-                
-                var json = JsonSerializer.Serialize(response, options);
+                var json = JsonSerializer.Serialize(response);
 
                 await context.Response.WriteAsync(json);
             }
