@@ -13,6 +13,6 @@ export class ShopService {
 
   getProducts()
   {
-    return this.http.get<IPagination>(this.baseUrl + 'products?pagesize=50');
+    return this.http.get<IPagination>(this.baseUrl + 'products');
   }
 }
