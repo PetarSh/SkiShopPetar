@@ -7,7 +7,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [ShopComponent, ProductItemComponent, ProductDetailsComponent, ProductDetailsComponent],
+  declarations: [ShopComponent, ProductItemComponent, ProductDetailsComponent],
   imports: [
     CommonModule,
     SharedModule,RouterModule
