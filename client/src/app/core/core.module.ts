@@ -22,4 +22,4 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
   ],
   exports: [NavBarComponent,SectionHeaderComponent]
 })
-export class CoreModule { }
+export class CoreModule {  }
