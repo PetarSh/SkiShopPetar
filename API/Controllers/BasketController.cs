@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace API.Controllers
 {
     public class BasketController : BaseApiController
@@ -25,7 +26,7 @@ namespace API.Controllers
             return Ok(basket ?? new CustomerBasket(id));
         }
 
-        [HttpPost]
+       /*  [HttpPost]
         public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasketDto basket)
         {
             var customerBasket = _mapper.Map<CustomerBasket>(basket);
@@ -33,7 +34,7 @@ namespace API.Controllers
             var updatedBasket = await _basketRepository.UpdateBasketAsync(customerBasket);
 
             return Ok(updatedBasket);
-        }
+        } */
 
         [HttpDelete]
         public async Task DeleteBasketAsync(string id)
