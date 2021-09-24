@@ -10,7 +10,7 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
 @NgModule({
-  declarations: [NavBarComponent, TestErrorComponent, ServerErrorComponent, NotFoundComponent, SectionHeaderComponent],
+  declarations: [NavBarComponent, TestErrorComponent, NotFoundComponent, ServerErrorComponent, SectionHeaderComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -20,6 +20,6 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
       preventDuplicates: true
     })
   ],
-  exports: [NavBarComponent,SectionHeaderComponent]
+  exports: [NavBarComponent, SectionHeaderComponent]
 })
-export class CoreModule {  }
+export class CoreModule { }

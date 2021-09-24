@@ -18,7 +18,7 @@ namespace API.Controllers
             _basketRepository = basketRepository;
         }
 
-        [HttpGet]
+       [HttpGet]
         public async Task<ActionResult<CustomerBasket>> GetBasketById(string id)
         {
             var basket = await _basketRepository.GetBasketAsync(id);
@@ -26,15 +26,13 @@ namespace API.Controllers
             return Ok(basket ?? new CustomerBasket(id));
         }
 
-       /*  [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasketDto basket)
+        [HttpPost]
+        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
         {
-            var customerBasket = _mapper.Map<CustomerBasket>(basket);
-
-            var updatedBasket = await _basketRepository.UpdateBasketAsync(customerBasket);
+            var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
 
             return Ok(updatedBasket);
-        } */
+        }
 
         [HttpDelete]
         public async Task DeleteBasketAsync(string id)

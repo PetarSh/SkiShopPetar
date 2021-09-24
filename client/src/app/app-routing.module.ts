@@ -12,6 +12,8 @@ const routes: Routes = [
   data: {breadcrumb: 'Shop'}},
   {path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule), 
   data: {breadcrumb: 'Basket'}},
+  {path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(mod => mod.CheckoutModule), 
+  data: {breadcrumb: 'Checkout'}},
   { path: 'test-error', component: TestErrorComponent ,data:{breadcrumb:'Test errors'}},
   { path: 'server-error', component: ServerErrorComponent,data:{breadcrumb:'Server errors'}  },
   { path: 'not-found', component: NotFoundComponent,data:{breadcrumb:'Not found'}},
