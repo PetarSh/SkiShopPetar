@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   constructor(private accountService: AccountService, private router: Router) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map(auth => {
@@ -21,5 +21,5 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['account/login'], {queryParams: {returnUrl: state.url}})
       })
     )
-    }
+  }
 }

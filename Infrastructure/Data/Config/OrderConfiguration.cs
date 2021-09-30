@@ -1,5 +1,4 @@
 using System;
-using Core.Entities.OrderAggregate;
 using Core.Entities.OrderAgregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

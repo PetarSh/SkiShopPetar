@@ -4,13 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasket, IBasketItem, IBasketTotals } from '../shared/models/basket';
+import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 import { IProduct } from '../shared/models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasketService {
-
   baseUrl = environment.apiUrl;
   private basketSource = new BehaviorSubject<IBasket>(null);
   basket$ = this.basketSource.asObservable();
@@ -20,6 +20,25 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
+  createPaymentIntent() {
+    return this.http.post(this.baseUrl + 'payments/' + this.getCurrentBasketValue().id, {})
+      .pipe(
+        map((basket: IBasket) => {
+          this.basketSource.next(basket);
+          console.log(this.getCurrentBasketValue());
+        })
+      )
+  }
+  
+  setShippingPrice(deliveryMethod: IDeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    const basket = this.getCurrentBasketValue();
+    basket.deliveryMethodId = deliveryMethod.id;
+    basket.shippingPrice = deliveryMethod.price;
+    this.calculateTotals();
+    this.setBasket(basket);
+  }
+  
   getBasket(id: string) {
     return this.http.get(this.baseUrl + 'basket?id=' + id)
       .pipe(
@@ -30,7 +49,7 @@ export class BasketService {
         })
       )
   }
-  
+
   setBasket(basket: IBasket) {
     return this.http.post(this.baseUrl + 'basket', basket).subscribe((response: IBasket) => {
       this.basketSource.next(response);
@@ -104,6 +123,8 @@ export class BasketService {
     const total = subtotal + shipping;
     this.basketTotalSource.next({shipping, total, subtotal});
   }
+
+
   private addOrUpdateItem(items: IBasketItem[], itemToAdd: IBasketItem, quantity: number): IBasketItem[] {
     const index = items.findIndex(i => i.id === itemToAdd.id);
     if (index === -1) {
@@ -120,6 +141,7 @@ export class BasketService {
     localStorage.setItem('basket_id', basket.id);
     return basket;
   }
+
   private mapProductItemToBasketItem(item: IProduct, quantity: number): IBasketItem {
     return {
       id: item.id,
@@ -131,5 +153,4 @@ export class BasketService {
       type: item.productType
     }
   }
-
 }
