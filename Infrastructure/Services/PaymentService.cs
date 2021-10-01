@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.Extensions.Configuration;
 using Stripe;
-using Core.Entities.OrderAggregate;
-using Core.Specifications;
 using Order = Core.Entities.OrderAggregate.Order;
 
 namespace Infrastructure.Services
@@ -27,7 +27,7 @@ namespace Infrastructure.Services
     }
     public async Task<CustomerBasket> CreateOrUpdatePayment(string basketId)
     {
-      StripeConfiguration.ApiKey = _configuration["Stripe:Secretkey"];
+      StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
       var basket = await _basketRepository.GetBasketAsync(basketId);
       var shippingPrice = 0m;
 
