@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Stripe;
-using Order = Core.Entities.Order.Order;
+using Core.Entities.OrderAggregate;
+using Order = Core.Entities.OrderAggregate.Order;
 
 namespace API.Controllers
 {

@@ -8,8 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Stripe;
 using Core.Entities.OrderAggregate;
 using Core.Specifications;
-using Core.Entities.OrderAgregate;
-using Order = Core.Entities.OrderAgregate.Order;
+using Order = Core.Entities.OrderAggregate.Order;
 
 namespace Infrastructure.Services
 {

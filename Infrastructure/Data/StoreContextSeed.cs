@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Microsoft.Extensions.Logging;
 
