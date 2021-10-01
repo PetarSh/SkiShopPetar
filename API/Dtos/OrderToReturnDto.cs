@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Core.Entities.OrderAgregate;
+using Core.Entities.Identity;
+using Core.Entities.OrderAggregate;
+using Address = Core.Entities.OrderAggregate.Address;
 
 namespace API.Dtos
 {

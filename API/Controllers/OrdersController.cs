@@ -4,6 +4,7 @@ using API.Dtos;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
+using Core.Entities.OrderAggregate;
 using Core.Entities.OrderAgregate;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;

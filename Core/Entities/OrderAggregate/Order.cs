@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Core.Entities.OrderAgregate;
 
-namespace Core.Entities.OrderAgregate
+
+namespace Core.Entities.OrderAggregate
 {
   public class Order : BaseEntity
   {
