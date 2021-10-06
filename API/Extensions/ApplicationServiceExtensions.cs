@@ -16,6 +16,7 @@ namespace API.Extensions
       services.AddScoped<IProductRepository, ProductRepository>();
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+      services.AddScoped<IOrderService,OrderService>();
       services.AddScoped<IBasketRepository, BasketRepository>();
       services.AddScoped<IPaymentService, PaymentService>();
       
