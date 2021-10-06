@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket';
+import { IOrder } from 'src/app/shared/models/order';
 import { CheckoutService } from '../checkout.service';
 
 declare var Stripe;

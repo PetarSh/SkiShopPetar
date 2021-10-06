@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using Core.Specifications;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 using Order = Core.Entities.OrderAggregate.Order;
+using Product = Core.Entities.Product;
 
 namespace Infrastructure.Services
 {
@@ -16,31 +16,33 @@ namespace Infrastructure.Services
   {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IBasketRepository _basketRepository;
-    private readonly IConfiguration _configuration;
-
-    public PaymentService(IBasketRepository basketRepository, IUnitOfWork unitOfWork, IConfiguration configuration)
+    private readonly IConfiguration _config;
+    public PaymentService(IUnitOfWork unitOfWork, IBasketRepository basketRepository, IConfiguration config)
     {
-      _configuration = configuration;
+      _config = config;
       _basketRepository = basketRepository;
       _unitOfWork = unitOfWork;
-
     }
-    public async Task<CustomerBasket> CreateOrUpdatePayment(string basketId)
+
+    public async Task<CustomerBasket> CreateOrUpdatePaymentIntent(string basketId)
     {
-      StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
+      StripeConfiguration.ApiKey = _config["StripeSettings:SecretKey"];
+
       var basket = await _basketRepository.GetBasketAsync(basketId);
+
+      if (basket == null) return null;
+
       var shippingPrice = 0m;
 
       if (basket.DeliveryMethodId.HasValue)
       {
         var deliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync((int)basket.DeliveryMethodId);
         shippingPrice = deliveryMethod.Price;
-
       }
 
       foreach (var item in basket.Items)
       {
-        var productItem = await _unitOfWork.Repository<Core.Entities.Product>().GetByIdAsync(item.Id);
+        var productItem = await _unitOfWork.Repository<Product>().GetByIdAsync(item.Id);
         if (item.Price != productItem.Price)
         {
           item.Price = productItem.Price;
@@ -56,7 +58,7 @@ namespace Infrastructure.Services
         var options = new PaymentIntentCreateOptions
         {
           Amount = (long)basket.Items.Sum(i => i.Quantity * (i.Price * 100)) + ((long)shippingPrice * 100),
-          Currency = "MKD",
+          Currency = "usd",
           PaymentMethodTypes = new List<string> { "card" }
         };
         intent = await service.CreateAsync(options);
@@ -75,7 +77,6 @@ namespace Infrastructure.Services
       await _basketRepository.UpdateBasketAsync(basket);
 
       return basket;
-
     }
 
     public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
@@ -107,7 +108,5 @@ namespace Infrastructure.Services
 
       return order;
     }
-
-
   }
 }
